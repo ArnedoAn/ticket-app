@@ -1,1 +1,34 @@
-<p>ticket-card works!</p>
+<mat-card class="card">
+  <mat-card-header style="position: relative; left: 8px; top: 10px">
+    <img mat-card-avatar [src]="profilePicture" />
+    <mat-card-subtitle
+      style="position: relative; top: 10px; font-size: medium"
+      >{{ assignment.user.nombre }}</mat-card-subtitle
+    >
+  </mat-card-header>
+
+  <mat-card-content class="card-content">
+    <mat-card-title style="margin: 12px 0px">{{
+      assignment.ticket.descripcion
+    }}</mat-card-title>
+    <mat-card-subtitle class=""
+      >Prioridad: {{ assignment.ticket.prioridad }}</mat-card-subtitle
+    >
+    <p>{{ assignment.fecha }}</p>
+    <mat-divider></mat-divider>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button style="margin: 5px">Asignar</button>
+    <button mat-raised-button style="margin: 5px">Editar</button>
+    <button mat-raised-button style="margin: 5px">Eliminar</button>
+    <button mat-raised-button style="margin: 5px" color="accent">
+      Modificar Estado
+    </button>
+  </mat-card-actions>
+  <mat-card-footer>
+    <mat-progress-bar
+      [mode]="progressBar.mode"
+      [value]="progressBar.value"
+    ></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

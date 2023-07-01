@@ -1,5 +1,5 @@
 export const api = {
-  profilePicture: 'https://ui-avatars.com/api/?name=Andres+Arnedo&size=128',
+  profilePicture: 'https://ui-avatars.com/api/',
   users: 'https://jsonplaceholder.typicode.com/users',
   tickets: 'https://jsonplaceholder.typicode.com/todos',
   assignments: 'https://jsonplaceholder.typicode.com/todos',
