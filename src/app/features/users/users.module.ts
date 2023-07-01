@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import {MatCardModule} from '@angular/material/card';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [UserFormComponent, UserCardComponent],
@@ -20,6 +20,7 @@ import {MatCardModule} from '@angular/material/card';
     FormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
   ],
   exports: [UserFormComponent, UserCardComponent],
 })
