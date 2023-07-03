@@ -9,6 +9,7 @@ import { DashboardService } from './services/dashboard.service';
   declarations: [DashboardComponent],
   imports: [CommonModule, TicketsModule, UsersModule],
   providers: [DashboardService],
+  exports: [DashboardComponent],
 })
 export class DashboardModule {
 

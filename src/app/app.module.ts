@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './features/users/users.module';
 import { TicketsModule } from './features/tickets/tickets.module';
+import { DashboardModule } from './features/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +14,7 @@ import { TicketsModule } from './features/tickets/tickets.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    UsersModule,
-    TicketsModule
+    DashboardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

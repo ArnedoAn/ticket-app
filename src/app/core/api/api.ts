@@ -6,6 +6,7 @@ export const API = {
   users: `${apiUrl}/Users`,
   tickets: `${apiUrl}/Tickets`,
   assignments: `${apiUrl}/Assignments`,
+  status: `${apiUrl}/Status`,
 };
 
 /**

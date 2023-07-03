@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Assingment } from '../../models/assignment.models';
 import { User } from 'src/app/features/users/models/user.model';
@@ -10,7 +10,7 @@ import { TicketService } from '../../services/ticket.service';
   templateUrl: './ticket-form.component.html',
   styleUrls: ['./ticket-form.component.css'],
 })
-export class TicketFormComponent {
+export class TicketFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TicketFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Assingment,
@@ -20,23 +20,23 @@ export class TicketFormComponent {
     this.modTicket = JSON.parse(JSON.stringify(data));
   }
 
-  users: User[] = [
-    {
-      id: 1,
-      nombre: 'John Doe',
-      cedula: '1234567890',
-    },
-    {
-      id: 2,
-      nombre: 'Jane Doe',
-      cedula: '0987654321',
-    },
-    {
-      id: 3,
-      nombre: 'John Smith',
-      cedula: '1234509876',
-    },
-  ];
+  users: User[] = [];
+
+  ngOnInit(): void {
+    this.setInitialData();
+  }
+
+  setInitialData() {
+    this._ticketService.getAllUsers().subscribe({
+      next: (users) => {
+        console.log(users);
+        this.users = users;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   modTicket: Assingment = {} as Assingment;
 

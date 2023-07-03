@@ -8,6 +8,7 @@ import { TicketFormComponent } from '../ticket-form/ticket-form.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TicketStatusAssignComponent } from '../ticket-status-assign/ticket-status-assign.component';
 import { TicketUserAssignComponent } from '../ticket-user-assign/ticket-user-assign.component';
+import { TicketService } from '../../services/ticket.service';
 
 interface progressBar {
   mode: ProgressBarMode;
@@ -20,7 +21,11 @@ interface progressBar {
   styleUrls: ['./ticket-card.component.css'],
 })
 export class TicketCardComponent implements OnInit {
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {}
+  constructor(
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private _ticketService: TicketService
+  ) {}
 
   ngOnInit(): void {
     this.profilePicture = `${profilePictureApi}?name=${this.assignment.user.nombre}&size=128`;
@@ -31,6 +36,7 @@ export class TicketCardComponent implements OnInit {
   ticketAssigned: boolean = true;
 
   @Input() assignment: Assingment = {
+    id: 1,
     user: {
       id: 1,
       nombre: 'John Doe',
@@ -42,13 +48,35 @@ export class TicketCardComponent implements OnInit {
       prioridad: 'Alta',
     },
     fecha: formatDate(new Date()),
-    estado: 'En proceso',
+    estado: { id: 1, nombre: 'En proceso' },
   };
+
+  tempAssignment: Assingment = JSON.parse(JSON.stringify(this.assignment));
 
   progressBar: progressBar = {
     mode: 'determinate',
     value: 100,
   };
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, undefined, {
+      duration: 2000,
+    });
+  }
+
+  updateAssignment() {
+    this._ticketService.updateAssignment(this.tempAssignment).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.assignment = this.tempAssignment;
+        this.openSnackBar('Ticket modificado correctamente');
+      },
+      error: (error) => {
+        console.error(error);
+        this.openSnackBar('Error al modificar el ticket');
+      },
+    });
+  }
 
   checkTicketAssigned(assignment: Assingment): void {
     if (assignment.user.id == 0) {
@@ -65,7 +93,8 @@ export class TicketCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result) {
-        this.assignment = result;
+        this.tempAssignment = result;
+        this.updateAssignment();
       }
     });
   }
@@ -79,7 +108,8 @@ export class TicketCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result) {
-        this.assignment.estado = result;
+        this.tempAssignment.estado = result;
+        this.updateAssignment();
       }
     });
   }
@@ -93,17 +123,11 @@ export class TicketCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result) {
-        this.assignment.user = result;
+        this.tempAssignment.user = result;
+        this.updateAssignment();
       }
     });
   }
 
-  deleteTicket(): void {
-    this.assignment.user = {
-      id: 0,
-      nombre: '',
-      cedula: '',
-    };
-    this.checkTicketAssigned(this.assignment);
-  }
+  deleteTicket(): void {}
 }

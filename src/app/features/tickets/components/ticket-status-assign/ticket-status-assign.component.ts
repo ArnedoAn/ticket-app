@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Status } from '../../models/status.model';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-ticket-status-assign',
@@ -11,17 +13,23 @@ export class TicketStatusAssignComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TicketStatusAssignComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _ticketService: TicketService
   ) {}
 
   ngOnInit(): void {
-    this.modStatus = JSON.parse(JSON.stringify(this.data.estado));
-    console.log(this.modStatus);
+    this.setInitalStatuses();
   }
 
-  statuses: string[] = ['En proceso', 'Suspendido', 'Terminado', 'Vencida'];
+  statuses: Status[] = [];
 
-  modStatus: string = '';
+  selectedStatus: string = '';
+
+  setInitalStatuses() {
+    this._ticketService.getStatuses().subscribe((statuses) => {
+      this.statuses = statuses;
+    });
+  }
 
   openSnackBar(message: string) {
     this._snackBar.open(message, undefined, {
@@ -34,11 +42,11 @@ export class TicketStatusAssignComponent implements OnInit {
   }
 
   changeStatus(event: string) {
-    this.modStatus = event;
+    this.selectedStatus = event;
   }
 
   save(): void {
-    this.dialogRef.close(this.modStatus);
+    this.dialogRef.close(this.selectedStatus);
     this.openSnackBar('Ticket modificado correctamente');
   }
 }

@@ -8,7 +8,7 @@
             required
             [(ngModel)]="selectedUser"
           >
-            <mat-option *ngFor="let user of users" [value]="user">
+            <mat-option *ngFor="let user of users" [value]="user" (onSelectionChange)="showUser()">
               {{ user.nombre }}
             </mat-option>
           </mat-select>

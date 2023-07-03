@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
   setInitialValues(): void {
     this._dashboardService.getAllAssignments().subscribe((assignments) => {
       this.assignments = assignments;
-      console.log(this.assignments)
     });
   }
 }

@@ -25,7 +25,7 @@ import { UsersService } from './services/users.service';
     MatDialogModule,
     HttpClientModule,
   ],
-  exports: [UserFormComponent, UserCardComponent],
+  exports: [UserCardComponent],
   providers: [UsersService],
 })
 export class UsersModule {}

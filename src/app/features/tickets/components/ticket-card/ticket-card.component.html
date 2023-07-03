@@ -6,7 +6,7 @@
         assignment.user.nombre
       }}</mat-card-subtitle>
       <mat-card-subtitle style="font-size: small; font-style: oblique">
-        {{ assignment.estado }}
+        {{ assignment.estado.nombre }}
       </mat-card-subtitle>
     </mat-card-header>
   </ng-container>
@@ -25,7 +25,7 @@
     <mat-divider></mat-divider>
   </mat-card-content>
   <mat-card-actions align="end">
-    <ng-container *ngIf="!ticketAssigned"
+    <ng-container *ngIf="ticketAssigned"
       ><button
         mat-raised-button
         style="margin: 5px"

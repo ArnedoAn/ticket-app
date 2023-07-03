@@ -7,10 +7,9 @@
         <mat-select
           required
           (selectionChange)="changeStatus($event.value)"
-          [(ngModel)]="modStatus"
-          [value]="modStatus"
+          [(ngModel)]="selectedStatus"
         >
-          <mat-option *ngFor="let status of statuses" [value]="status">
+          <mat-option *ngFor="let status of statuses" [value]="status.nombre">
             {{ status }}
           </mat-option>
         </mat-select>

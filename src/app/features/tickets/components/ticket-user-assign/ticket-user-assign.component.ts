@@ -38,26 +38,8 @@ export class TicketUserAssignComponent implements OnInit {
     });
   }
 
-  updateAssignment() {
-    this._ticketService.assignUserToTicket(this.modAssignment).subscribe({
-      next: (msg) => {
-        console.log(msg);
-        this.openSnackBar('Usuario asignado correctamente.');
-        this.dialogRef.close(this.modAssignment);
-      },
-      error: (err) => {
-        console.log(err);
-        this.openSnackBar('Error al asignar el usuario');
-        this.dialogRef.close();
-      },
-    });
-  }
-
-  setAssignment(event: string) {
-    const selectedUser = this.users.find((user) => user.nombre === event);
-    if (selectedUser) {
-      this.modAssignment.user = selectedUser;
-    }
+  showUser(){
+    console.log(this.selectedUser);
   }
 
   openSnackBar(message: string) {
@@ -72,7 +54,10 @@ export class TicketUserAssignComponent implements OnInit {
 
   save(): void {
     console.log(this.selectedUser);
-    this.dialogRef.close(this.selectedUser);
-    this.openSnackBar('Usuario asignado correctamente.');
+    if (this.selectedUser !== ({} as User)) {
+      this.dialogRef.close(this.selectedUser);
+    } else {
+      this.dialogRef.close();
+    }
   }
 }
