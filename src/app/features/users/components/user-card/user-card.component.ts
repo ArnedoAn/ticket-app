@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../../models/user.model';
-import { api } from 'src/app/core/api/apis';
+import { profilePictureApi } from 'src/app/core/config/constants';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFormComponent } from '../user-form/user-form.component';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-user-card',
@@ -10,19 +11,17 @@ import { UserFormComponent } from '../user-form/user-form.component';
   styleUrls: ['./user-card.component.css'],
 })
 export class UserCardComponent {
-  constructor(public dialog: MatDialog) {}
-  user: User = { id: 0, nombre: 'Andres Arnedo', cedula: '123456' };
+  constructor(public dialog: MatDialog, private _userService: UsersService) {}
 
-  profilePicture: string = '';
-  ngOnInit(): void {
-    this.profilePicture = `${
-      api.profilePicture
-    }?name=${this.user.nombre.replace(' ', '+')}&size=40`;
-  }
-
-  @Input() set userIn(user: User) {
-    this.user = user;
-  }
+  @Input() user: User = {
+    id: 1,
+    nombre: 'Eduardo Arnedo',
+    cedula: '10001',
+  } as User;
+  profilePicture: string = `${profilePictureApi}?name=${this.user.nombre.replace(
+    ' ',
+    '+'
+  )}&size=40`;
 
   openEditUserDialog(): void {
     const dialogRef = this.dialog.open(UserFormComponent, {
@@ -30,7 +29,9 @@ export class UserCardComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      if (result != undefined) {
+        this.user = result;
+      }
     });
   }
 }

@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [UserFormComponent, UserCardComponent],
@@ -21,7 +23,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
+    HttpClientModule,
   ],
   exports: [UserFormComponent, UserCardComponent],
+  providers: [UsersService],
 })
 export class UsersModule {}

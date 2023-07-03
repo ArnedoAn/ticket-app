@@ -17,6 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TicketStatusAssignComponent } from './components/ticket-status-assign/ticket-status-assign.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TicketUserAssignComponent } from './components/ticket-user-assign/ticket-user-assign.component';
+import { TicketService } from './services/ticket.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { TicketUserAssignComponent } from './components/ticket-user-assign/ticke
     FormsModule,
     MatSelectModule,
     MatSnackBarModule,
+    HttpClientModule,
   ],
   exports: [TicketCardComponent],
+  providers: [TicketService],
 })
 export class TicketsModule {}

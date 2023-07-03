@@ -2,21 +2,26 @@
   <ng-container *ngIf="ticketAssigned">
     <mat-card-header>
       <img mat-card-avatar [src]="profilePicture" />
-      <mat-card-subtitle
-        style="position: relative; top: 10px; font-size: medium"
-        >{{ assignment.user.nombre }}</mat-card-subtitle
-      >
+      <mat-card-subtitle style="font-size: medium">{{
+        assignment.user.nombre
+      }}</mat-card-subtitle>
+      <mat-card-subtitle style="font-size: small; font-style: oblique">
+        {{ assignment.estado }}
+      </mat-card-subtitle>
     </mat-card-header>
   </ng-container>
 
   <mat-card-content class="card-content">
-    <mat-card-title style="margin: 12px 0px">{{
+    <mat-card-title style="margin: 5px 0px">{{
       assignment.ticket.descripcion
     }}</mat-card-title>
-    <mat-card-subtitle class=""
-      >Prioridad: {{ assignment.ticket.prioridad }}</mat-card-subtitle
-    >
-    <p>{{ assignment.fecha }}</p>
+    <div style="margin: 5px 0px">
+      <mat-card-subtitle class=""
+        >Prioridad: {{ assignment.ticket.prioridad }}</mat-card-subtitle
+      >
+      <p>{{ assignment.fecha }}</p>
+    </div>
+
     <mat-divider></mat-divider>
   </mat-card-content>
   <mat-card-actions align="end">
@@ -29,7 +34,6 @@
         Asignar
       </button></ng-container
     >
-
     <button
       mat-raised-button
       style="margin: 5px"

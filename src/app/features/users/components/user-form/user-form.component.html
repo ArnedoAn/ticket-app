@@ -4,14 +4,23 @@
     <div class="form-container">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Nombre</mat-label>
-        <input matInput placeholder="Nombre" [(ngModel)]="modUser.nombre" />
+        <input
+          matInput
+          required
+          placeholder="Nombre"
+          [(ngModel)]="modUser.nombre"
+        />
         <mat-icon matSuffix>group</mat-icon>
         <mat-hint>Cambia el nombre del usuario</mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Cedula</mat-label>
-        <input matInput placeholder="Cedula" [(ngModel)]="modUser.cedula" />
+        <input
+          matInput
+          requiredplaceholder="Cedula"
+          [(ngModel)]="modUser.cedula"
+        />
         <mat-icon matSuffix>badge</mat-icon>
         <mat-hint>Cambia la cedula del usuario</mat-hint>
       </mat-form-field>
@@ -25,7 +34,14 @@
       >
         Cancelar
       </button>
-      <button mat-raised-button color="primary">Guardar</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="save()"
+        [disabled]="!(modUser.nombre && modUser.cedula)"
+      >
+        Guardar
+      </button>
     </div>
   </div>
 </mat-dialog-content>

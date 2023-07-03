@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Assingment } from '../../models/assignment.models';
+import { profilePictureApi } from 'src/app/core/config/constants';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { formatDate } from 'src/app/core/services/util.service';
-import { api } from 'src/app/core/api/apis';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketFormComponent } from '../ticket-form/ticket-form.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -23,7 +23,7 @@ export class TicketCardComponent implements OnInit {
   constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.profilePicture = `${api.profilePicture}?name=${this.assignment.user.nombre}&size=128`;
+    this.profilePicture = `${profilePictureApi}?name=${this.assignment.user.nombre}&size=128`;
     this.checkTicketAssigned(this.assignment);
   }
 
