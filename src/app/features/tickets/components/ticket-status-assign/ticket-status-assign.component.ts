@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './ticket-status-assign.component.html',
   styleUrls: ['./ticket-status-assign.component.css'],
 })
-export class TicketStatusAssignComponent {
+export class TicketStatusAssignComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TicketStatusAssignComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -15,10 +15,11 @@ export class TicketStatusAssignComponent {
   ) {}
 
   ngOnInit(): void {
-    this.modStatus = JSON.parse(JSON.stringify(this.data.status));
+    this.modStatus = JSON.parse(JSON.stringify(this.data.estado));
+    console.log(this.modStatus);
   }
 
-  statuses: string[] = ['Asignado', 'En proceso', 'Finalizado'];
+  statuses: string[] = ['En proceso', 'Suspendido', 'Terminado', 'Vencida'];
 
   modStatus: string = '';
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Assingment } from '../../models/assignment.models';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { formatDate } from 'src/app/core/services/util.service';
@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TicketFormComponent } from '../ticket-form/ticket-form.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TicketStatusAssignComponent } from '../ticket-status-assign/ticket-status-assign.component';
+import { TicketUserAssignComponent } from '../ticket-user-assign/ticket-user-assign.component';
 
 interface progressBar {
   mode: ProgressBarMode;
@@ -18,22 +19,16 @@ interface progressBar {
   templateUrl: './ticket-card.component.html',
   styleUrls: ['./ticket-card.component.css'],
 })
-export class TicketCardComponent {
+export class TicketCardComponent implements OnInit {
   constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {}
-
-  profilePicture: string = '';
-  ticketAssigned: boolean = true;
 
   ngOnInit(): void {
     this.profilePicture = `${api.profilePicture}?name=${this.assignment.user.nombre}&size=128`;
     this.checkTicketAssigned(this.assignment);
   }
 
-  checkTicketAssigned(assignment: Assingment): void {
-    if (assignment.user.id == 0) {
-      this.ticketAssigned = false;
-    }
-  }
+  profilePicture: string = '';
+  ticketAssigned: boolean = true;
 
   @Input() assignment: Assingment = {
     user: {
@@ -47,13 +42,19 @@ export class TicketCardComponent {
       prioridad: 'Alta',
     },
     fecha: formatDate(new Date()),
-    estado: 'Asignado',
+    estado: 'En proceso',
   };
 
   progressBar: progressBar = {
     mode: 'determinate',
     value: 100,
   };
+
+  checkTicketAssigned(assignment: Assingment): void {
+    if (assignment.user.id == 0) {
+      this.ticketAssigned = false;
+    }
+  }
 
   openEditTicketDialog(): void {
     const dialogRef = this.dialog.open(TicketFormComponent, {
@@ -78,12 +79,24 @@ export class TicketCardComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result) {
-        this.assignment.user = result;
+        this.assignment.estado = result;
       }
     });
   }
 
-  openUserAssignDialog(): void {}
+  openUserAssignDialog(): void {
+    const dialogRef = this.dialog.open(TicketUserAssignComponent, {
+      data: this.assignment,
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result) {
+        this.assignment.user = result;
+      }
+    });
+  }
 
   deleteTicket(): void {
     this.assignment.user = {

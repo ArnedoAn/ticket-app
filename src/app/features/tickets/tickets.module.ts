@@ -16,12 +16,14 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TicketStatusAssignComponent } from './components/ticket-status-assign/ticket-status-assign.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TicketUserAssignComponent } from './components/ticket-user-assign/ticket-user-assign.component';
 
 @NgModule({
   declarations: [
     TicketCardComponent,
     TicketFormComponent,
     TicketStatusAssignComponent,
+    TicketUserAssignComponent,
   ],
   imports: [
     CommonModule,

@@ -44,8 +44,11 @@ export class TicketFormComponent {
     });
   }
 
-  changeUser(event: User) {
-    Object.assign(this.modTicket, { user: event });
+  changeUser(event: string) {
+    const selectedUser = this.users.find((user) => user.nombre === event);
+    if (selectedUser) {
+      this.modTicket.user = selectedUser;
+    }
   }
 
   onNoClick(): void {

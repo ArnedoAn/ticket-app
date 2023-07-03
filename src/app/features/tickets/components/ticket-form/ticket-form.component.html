@@ -30,11 +30,17 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Usuario</mat-label>
-        <mat-select required (selectionChange)="changeUser($event.value)">
-          <mat-option *ngFor="let user of users" [value]="user">
+        <mat-select
+          required
+          (selectionChange)="changeUser($event.value)"
+          [value]="modTicket.user.nombre"
+          [(ngModel)]="modTicket.user.nombre"
+        >
+          <mat-option *ngFor="let user of users" [value]="user.nombre">
             {{ user.nombre }}
           </mat-option>
         </mat-select>
+        <mat-hint>Cambia el usuario del ticket</mat-hint>
       </mat-form-field>
     </div>
     <div class="button-container">
