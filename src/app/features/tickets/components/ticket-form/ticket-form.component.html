@@ -1,0 +1,54 @@
+<mat-dialog-content class="dialog-content">
+  <div class="content-container">
+    <h1 class="title">Editar Ticket</h1>
+    <div class="form-container">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Descripción</mat-label>
+        <input
+          matInput
+          required
+          placeholder=""
+          [(ngModel)]="modTicket.ticket.descripcion"
+        />
+        <mat-icon matSuffix>more</mat-icon>
+        <mat-error>Por favor asigna una descripción</mat-error>
+        <mat-hint>Cambia la descripción del ticket</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Prioridad</mat-label>
+        <input
+          matInput
+          required
+          placeholder=""
+          [(ngModel)]="modTicket.ticket.prioridad"
+        />
+        <mat-icon matSuffix>badge</mat-icon>
+        <mat-error>Por favor asigna una prioridad</mat-error>
+        <mat-hint>Cambia la prioridad del ticket</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Usuario</mat-label>
+        <mat-select required (selectionChange)="changeUser($event.value)">
+          <mat-option *ngFor="let user of users" [value]="user">
+            {{ user.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onNoClick()"
+        class="cancel-button"
+      >
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" (click)="save()">
+        Guardar
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-export interface DialogData {
+interface DialogData {
   nombre: string;
   cedula: string;
 }
@@ -19,10 +19,13 @@ export class UserFormComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.modUser = JSON.parse(JSON.stringify(data));
-    // console.log(this.modUser);
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  save(): void {
+    this.dialogRef.close(this.modUser);
   }
 }

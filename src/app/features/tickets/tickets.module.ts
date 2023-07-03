@@ -7,9 +7,22 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { NgFor } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
+import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { TicketStatusAssignComponent } from './components/ticket-status-assign/ticket-status-assign.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [TicketCardComponent],
+  declarations: [
+    TicketCardComponent,
+    TicketFormComponent,
+    TicketStatusAssignComponent,
+  ],
   imports: [
     CommonModule,
     MatProgressBarModule,
@@ -18,6 +31,13 @@ import { MatChipsModule } from '@angular/material/chips';
     MatCardModule,
     MatChipsModule,
     NgFor,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatSelectModule,
+    MatSnackBarModule,
   ],
   exports: [TicketCardComponent],
 })

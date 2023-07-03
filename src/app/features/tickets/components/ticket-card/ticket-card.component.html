@@ -1,11 +1,13 @@
 <mat-card class="card">
-  <mat-card-header style="position: relative; left: 8px; top: 10px">
-    <img mat-card-avatar [src]="profilePicture" />
-    <mat-card-subtitle
-      style="position: relative; top: 10px; font-size: medium"
-      >{{ assignment.user.nombre }}</mat-card-subtitle
-    >
-  </mat-card-header>
+  <ng-container *ngIf="ticketAssigned">
+    <mat-card-header>
+      <img mat-card-avatar [src]="profilePicture" />
+      <mat-card-subtitle
+        style="position: relative; top: 10px; font-size: medium"
+        >{{ assignment.user.nombre }}</mat-card-subtitle
+      >
+    </mat-card-header>
+  </ng-container>
 
   <mat-card-content class="card-content">
     <mat-card-title style="margin: 12px 0px">{{
@@ -17,11 +19,34 @@
     <p>{{ assignment.fecha }}</p>
     <mat-divider></mat-divider>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button style="margin: 5px">Asignar</button>
-    <button mat-raised-button style="margin: 5px">Editar</button>
-    <button mat-raised-button style="margin: 5px">Eliminar</button>
-    <button mat-raised-button style="margin: 5px" color="accent">
+  <mat-card-actions align="end">
+    <ng-container *ngIf="!ticketAssigned"
+      ><button
+        mat-raised-button
+        style="margin: 5px"
+        [disabled]="ticketAssigned"
+        (click)="openUserAssignDialog()"
+      >
+        Asignar
+      </button></ng-container
+    >
+
+    <button
+      mat-raised-button
+      style="margin: 5px"
+      (click)="openEditTicketDialog()"
+    >
+      Editar
+    </button>
+    <button mat-raised-button style="margin: 5px" (click)="deleteTicket()">
+      Eliminar
+    </button>
+    <button
+      mat-raised-button
+      style="margin: 5px"
+      color="accent"
+      (click)="openChangeStatusDialog()"
+    >
       Modificar Estado
     </button>
   </mat-card-actions>
