@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Assingment } from '../../models/assignment.models';
 import { profilePictureApi } from 'src/app/core/config/constants';
 import { ProgressBarMode } from '@angular/material/progress-bar';
@@ -30,45 +30,64 @@ export class TicketCardComponent implements OnInit {
   ngOnInit(): void {
     this.profilePicture = `${profilePictureApi}?name=${this.assignment.user.nombre}&size=128`;
     this.checkTicketAssigned(this.assignment);
+    this.tempAssignment = JSON.parse(JSON.stringify(this.assignment));
   }
 
+  @Input() assignment: Assingment = {} as Assingment;
+
+  @Output() ticketDeleted: EventEmitter<Assingment> =
+    new EventEmitter<Assingment>();
+
+  tempAssignment: Assingment = {} as Assingment;
   profilePicture: string = '';
   ticketAssigned: boolean = true;
-
-  @Input() assignment: Assingment = {
-    id: 1,
-    user: {
-      id: 1,
-      nombre: 'John Doe',
-      cedula: '1234567890',
-    },
-    ticket: {
-      id: 1,
-      descripcion: 'Descripción del ticket',
-      prioridad: 'Alta',
-    },
-    fecha: formatDate(new Date()),
-    estado: { id: 1, nombre: 'En proceso' },
-  };
-
-  tempAssignment: Assingment = JSON.parse(JSON.stringify(this.assignment));
 
   progressBar: progressBar = {
     mode: 'determinate',
     value: 100,
   };
 
-  openSnackBar(message: string) {
+  openSnackBar(message: string): void {
     this._snackBar.open(message, undefined, {
       duration: 2000,
     });
   }
 
-  updateAssignment() {
+  updateAssignment(): void {
     this._ticketService.updateAssignment(this.tempAssignment).subscribe({
       next: (data) => {
         console.log(data);
         this.assignment = this.tempAssignment;
+        this.openSnackBar('Ticket modificado correctamente');
+      },
+      error: (error) => {
+        console.error(error);
+        this.openSnackBar('Error al modificar el ticket');
+      },
+    });
+  }
+
+  updateAssignmentWithTicket(): void {
+    this._ticketService
+      .updateAssignmentWithTicket(this.tempAssignment)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.assignment = this.tempAssignment;
+          this.openSnackBar('Ticket modificado correctamente');
+        },
+        error: (error) => {
+          console.error(error);
+          this.openSnackBar('Error al modificar el ticket');
+        },
+      });
+  }
+
+  deleteAssignmentWithTicket(): void {
+    this._ticketService.deleteAssignment(this.tempAssignment).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.ticketDeleted.emit(this.assignment);
         this.openSnackBar('Ticket modificado correctamente');
       },
       error: (error) => {
@@ -94,7 +113,7 @@ export class TicketCardComponent implements OnInit {
       console.log(result);
       if (result) {
         this.tempAssignment = result;
-        this.updateAssignment();
+        this.updateAssignmentWithTicket();
       }
     });
   }
@@ -128,6 +147,4 @@ export class TicketCardComponent implements OnInit {
       }
     });
   }
-
-  deleteTicket(): void {}
 }

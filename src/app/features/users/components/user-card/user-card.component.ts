@@ -1,27 +1,56 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { profilePictureApi } from 'src/app/core/config/constants';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { UsersService } from '../../services/users.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.css'],
 })
-export class UserCardComponent {
-  constructor(public dialog: MatDialog, private _userService: UsersService) {}
+export class UserCardComponent implements OnInit {
+  constructor(
+    public dialog: MatDialog,
+    private _userService: UsersService,
+    private _snackBar: MatSnackBar
+  ) {}
 
-  @Input() user: User = {
-    id: 1,
-    nombre: 'Eduardo Arnedo',
-    cedula: '10001',
-  } as User;
-  profilePicture: string = `${profilePictureApi}?name=${this.user.nombre.replace(
-    ' ',
-    '+'
-  )}&size=40`;
+  profilePicture: string = '';
+  @Input() user: User = {} as User;
+
+  ngOnInit(): void {
+    this.setProfilePicture();
+  }
+
+  setProfilePicture(): void {
+    this.profilePicture = `${profilePictureApi}?name=${this.user.nombre.replace(
+      ' ',
+      '+'
+    )}&size=40`;
+  }
+
+  updateUser(): void {
+    this._userService.UpdateUser(this.user).subscribe({
+      next: (msg) => {
+        console.log(msg);
+        this.setProfilePicture();
+        this.openSnackBar('Usuario modificado correctamente');
+      },
+      error: (err) => {
+        console.log(err);
+        this.openSnackBar('Error al modificar el usuario');
+      },
+    });
+  }
+
+  openSnackBar(message: string): void {
+    this._snackBar.open(message, undefined, {
+      duration: 2000,
+    });
+  }
 
   openEditUserDialog(): void {
     const dialogRef = this.dialog.open(UserFormComponent, {
@@ -31,6 +60,7 @@ export class UserCardComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result != undefined) {
         this.user = result;
+        this.updateUser();
       }
     });
   }

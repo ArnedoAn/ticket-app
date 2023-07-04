@@ -1,0 +1,61 @@
+<mat-dialog-content class="dialog-content">
+  <div class="content-container">
+    <h1 class="title">Crear Ticket</h1>
+    <div class="form-container">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Descripcion</mat-label>
+        <input
+          matInput
+          required
+          placeholder="Ingrese la descripcion"
+          [(ngModel)]="newTicket.descripcion"
+        />
+        <mat-icon matSuffix>group</mat-icon>
+        <mat-hint>Cambia el nombre del usuario</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Prioridad</mat-label>
+        <input
+          matInput
+          requiredplaceholder="Ingrese la prioridad"
+          [(ngModel)]="newTicket.prioridad"
+        />
+        <mat-icon matSuffix>badge</mat-icon>
+        <mat-hint>Cambia la cedula del usuario</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Usuario</mat-label>
+        <mat-select
+          required
+          (selectionChange)="changeUser($event.value)"
+        >
+          <mat-option *ngFor="let user of data" [value]="user.nombre">
+            {{ user.nombre }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Cambia el usuario del ticket</mat-hint>
+      </mat-form-field>
+      
+    </div>
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onNoClick()"
+        class="cancel-button"
+      >
+        Cancelar
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="save()"
+        [disabled]="!(newTicket.descripcion && newTicket.prioridad && !isDisabled) "
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

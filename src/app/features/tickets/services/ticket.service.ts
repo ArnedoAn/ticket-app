@@ -7,6 +7,8 @@ import { catchError } from 'rxjs/operators';
 import { Assingment } from '../models/assignment.models';
 import { Status } from '../models/status.model';
 import { AssingmentPutDto } from '../models/DTOs/assignmentPutDto.model';
+import { Ticket } from '../models/ticket.model';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class TicketService {
@@ -51,6 +53,30 @@ export class TicketService {
     );
   }
 
+  updateAssignmentWithTicket(assign: Assingment): Observable<boolean> {
+    const ticket: Ticket = assign.ticket;
+
+    return this.updateTicket(ticket).pipe(
+      switchMap((data) => {
+        console.log(data);
+        return this.updateAssignment(assign);
+      }),
+      catchError((err: any) => {
+        console.log(err);
+        throw err;
+      })
+    );
+  }
+
+  updateTicket(ticket: Ticket): Observable<boolean> {
+    return this.http.put<boolean>(this.urlTickets, ticket).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log(err);
+        throw err;
+      })
+    );
+  }
+
   getStatuses() {
     return this.http.get<Status[]>(this.urlStatus).pipe(
       catchError((err: HttpErrorResponse) => {
@@ -60,5 +86,27 @@ export class TicketService {
     );
   }
 
-  getAssignments() {}
+  deleteAssignment(assign: Assingment): Observable<boolean> {
+    return this.http
+      .delete<boolean>(`${this.urlAssignments}/${assign.id}`)
+      .pipe(
+        switchMap((data) => {
+          console.log(data);
+          return this.deleteTicket(assign.ticket.id);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          console.log(err);
+          throw err;
+        })
+      );
+  }
+
+  deleteTicket(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.urlTickets}/${id}`).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log(err);
+        throw err;
+      })
+    );
+  }
 }

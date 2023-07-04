@@ -1,0 +1,25 @@
+<h1>Hola mundo</h1>
+<div class="tickets-container">
+  <ng-container *ngIf="assignments.length > 0">
+    <app-ticket-card
+      *ngFor="let assignment of assignments"
+      [assignment]="assignment"
+      (ticketDeleted)="deleteTicket($event)"
+    ></app-ticket-card>
+  </ng-container>
+
+  <div *ngIf="assignments.length === 0">
+    <p>No hay tickets disponibles...</p>
+  </div>
+</div>
+
+<div class="buttons-container">
+  <button mat-raised-button color="primary" (click)="openNewTicketDialog()">
+    Nuevo ticket
+  </button>
+  <button mat-raised-button color="primary" (click)="openNewUserDialog()">
+    Nuevo usuario
+  </button>
+</div>
+
+<app-user-card *ngFor="let user of users" [user]="user"></app-user-card>

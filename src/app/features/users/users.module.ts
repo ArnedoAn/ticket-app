@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [UserFormComponent, UserCardComponent],
@@ -24,6 +25,7 @@ import { UsersService } from './services/users.service';
     MatCardModule,
     MatDialogModule,
     HttpClientModule,
+    MatSnackBarModule,
   ],
   exports: [UserCardComponent],
   providers: [UsersService],

@@ -25,7 +25,7 @@
     <mat-divider></mat-divider>
   </mat-card-content>
   <mat-card-actions align="end">
-    <ng-container *ngIf="ticketAssigned"
+    <ng-container *ngIf="!ticketAssigned"
       ><button
         mat-raised-button
         style="margin: 5px"
@@ -41,7 +41,7 @@
     >
       Editar
     </button>
-    <button mat-raised-button style="margin: 5px" (click)="deleteTicket()">
+    <button mat-raised-button style="margin: 5px" (click)="deleteAssignmentWithTicket()" color="warn">
       Eliminar
     </button>
     <button
