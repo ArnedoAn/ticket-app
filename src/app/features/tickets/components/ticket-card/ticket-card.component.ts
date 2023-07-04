@@ -31,6 +31,7 @@ export class TicketCardComponent implements OnInit {
     this.profilePicture = `${profilePictureApi}?name=${this.assignment.user.nombre}&size=128`;
     this.checkTicketAssigned(this.assignment);
     this.tempAssignment = JSON.parse(JSON.stringify(this.assignment));
+    this.assignment.fecha = formatDate(this.assignment.fecha);
   }
 
   @Input() assignment: Assingment = {} as Assingment;
