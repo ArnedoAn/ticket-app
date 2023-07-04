@@ -36,22 +36,6 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(NewUserFormComponent, {
       width: '400px',
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this._dashboardService.createTicket(result).subscribe({
-          next: (msg) => {
-            console.log(msg);
-            this.openSnackBar('Ticket creado correctamente');
-            this.setInitialValues();
-          },
-          error: (err) => {
-            console.log(err);
-            this.openSnackBar('Error al crear el ticket');
-          },
-        });
-      }
-    });
   }
 
   openNewTicketDialog(): void {
@@ -59,22 +43,6 @@ export class DashboardComponent implements OnInit {
       width: '450px',
       // height: '600px',
       data: this.users,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this._dashboardService.createUser(result).subscribe({
-          next: (msg) => {
-            console.log(msg);
-            this.openSnackBar('Usuario creado correctamente');
-            this.setInitialValues();
-          },
-          error: (err) => {
-            console.log(err);
-            this.openSnackBar('Error al crear el usuario');
-          },
-        });
-      }
     });
   }
 

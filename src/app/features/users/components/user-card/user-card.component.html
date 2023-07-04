@@ -7,8 +7,14 @@
     ></div>
     <mat-card-title>{{ user.nombre }}</mat-card-title>
     <mat-card-subtitle>CC {{ user.cedula }}</mat-card-subtitle>
-    <div>
-      <button mat-raised-button style="position: absolute; right: 30px" (click)="openEditUserDialog()">Editar</button>
+    <div class="edit-button-container">
+      <button
+        mat-raised-button
+        class="edit-button"
+        (click)="openEditUserDialog()"
+      >
+        Editar
+      </button>
     </div>
   </mat-card-header>
 </mat-card>

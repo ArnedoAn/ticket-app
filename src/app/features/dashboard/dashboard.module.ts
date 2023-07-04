@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule,
     MatIconModule,
     FormsModule,
+    MatTabsModule
   ],
   providers: [DashboardService],
   exports: [DashboardComponent],

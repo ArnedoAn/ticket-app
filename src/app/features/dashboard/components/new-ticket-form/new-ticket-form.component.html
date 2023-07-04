@@ -7,22 +7,22 @@
         <input
           matInput
           required
-          placeholder="Ingrese la descripcion"
+          placeholder="Descripción"
           [(ngModel)]="newTicket.descripcion"
         />
-        <mat-icon matSuffix>group</mat-icon>
-        <mat-hint>Cambia el nombre del usuario</mat-hint>
+        <mat-icon matSuffix>description</mat-icon>
+        <mat-hint>Ingrese la descripción</mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Prioridad</mat-label>
         <input
           matInput
-          requiredplaceholder="Ingrese la prioridad"
+          requiredplaceholder="Prioridad"
           [(ngModel)]="newTicket.prioridad"
         />
         <mat-icon matSuffix>badge</mat-icon>
-        <mat-hint>Cambia la cedula del usuario</mat-hint>
+        <mat-hint>Ingrese la prioridad</mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
@@ -35,7 +35,7 @@
             {{ user.nombre }}
           </mat-option>
         </mat-select>
-        <mat-hint>Cambia el usuario del ticket</mat-hint>
+        <mat-hint>Elija el usuario del ticket</mat-hint>
       </mat-form-field>
       
     </div>

@@ -1,25 +1,34 @@
-<h1>Hola mundo</h1>
-<div class="tickets-container">
-  <ng-container *ngIf="assignments.length > 0">
-    <app-ticket-card
-      *ngFor="let assignment of assignments"
-      [assignment]="assignment"
-      (ticketDeleted)="deleteTicket($event)"
-    ></app-ticket-card>
-  </ng-container>
+<mat-tab-group class="main-frame">
+  <mat-tab label="Tickets">
+    <ng-template mat-tab-label>
+      <button mat-icon-button color="primary" (click)="openNewTicketDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <span>Tickets</span>
+    </ng-template>
 
-  <div *ngIf="assignments.length === 0">
-    <p>No hay tickets disponibles...</p>
-  </div>
-</div>
+    <div class="tickets-container">
+      <div class="ticket-card" *ngFor="let assignment of assignments">
+        <app-ticket-card
+          [assignment]="assignment"
+          (ticketDeleted)="deleteTicket($event)"
+        ></app-ticket-card>
+      </div>
+    </div>
+  </mat-tab>
 
-<div class="buttons-container">
-  <button mat-raised-button color="primary" (click)="openNewTicketDialog()">
-    Nuevo ticket
-  </button>
-  <button mat-raised-button color="primary" (click)="openNewUserDialog()">
-    Nuevo usuario
-  </button>
-</div>
+  <mat-tab label="Usuarios">
+    <ng-template mat-tab-label>
+      <button mat-icon-button color="primary" (click)="openNewUserDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <span>Usuarios</span>
+    </ng-template>
 
-<app-user-card *ngFor="let user of users" [user]="user"></app-user-card>
+    <div class="user-cards-container">
+      <div class="user-card" *ngFor="let user of users">
+        <app-user-card [user]="user"></app-user-card>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

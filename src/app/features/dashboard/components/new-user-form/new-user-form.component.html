@@ -1,0 +1,47 @@
+<mat-dialog-content class="dialog-content">
+  <div class="content-container">
+    <h1 class="title">Crear Usuario</h1>
+    <div class="form-container">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre</mat-label>
+        <input
+          matInput
+          required
+          placeholder="Nombre"
+          [(ngModel)]="newUser.nombre"
+        />
+        <mat-icon matSuffix>group</mat-icon>
+        <mat-hint>Ingrese el nombre del usuario</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Cedula</mat-label>
+        <input
+          matInput
+          requiredplaceholder="Cedula"
+          [(ngModel)]="newUser.cedula"
+        />
+        <mat-icon matSuffix>badge</mat-icon>
+        <mat-hint>Ingrese la cedula del usuario</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onNoClick()"
+        class="cancel-button"
+      >
+        Cancelar
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="save()"
+        [disabled]="!(newUser.nombre && newUser.cedula)"
+      >
+        Crear
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

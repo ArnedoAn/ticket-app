@@ -1,0 +1,32 @@
+.mat-tab-label {
+  display: flex;
+  align-items: center;
+}
+
+.mat-tab-label button {
+  margin-right: 5px;
+}
+
+.tickets-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.ticket-card {
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.user-card {
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+}

@@ -1,4 +1,15 @@
 .card {
-  max-width: 400px;
+  position: relative;
 }
+
+.edit-button-container {
+  position: static;
+  top: 10px;
+  right: 10px;
+}
+
+.edit-button {
+  white-space: nowrap;
+}
+
 
